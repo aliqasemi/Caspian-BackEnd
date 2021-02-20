@@ -92,4 +92,8 @@ class AuthController extends Controller
         return response()->json('شما با موفقیت خارج شدید.');
     }
 
+    public function changePassword(){
+
+    }
+
 }
