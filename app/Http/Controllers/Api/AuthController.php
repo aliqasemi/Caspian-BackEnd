@@ -7,6 +7,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -46,7 +47,8 @@ class AuthController extends Controller
         $data = $request->all();
 
         $validator = Validator::make($request->all(), [
-            'email' => 'email|required',
+            'email' => 'email|required_without_all:phoneNumber',
+            'phoneNumber' => 'regex:/(09)[0-9]{9}/|digits:11|required_without_all:email',
             'password' => 'required'
         ]);
 
@@ -55,14 +57,19 @@ class AuthController extends Controller
         }
 
         if (!auth()->attempt($data)) {
-            return response()->json('ایمیل یا رمز عبور اشتباه است.', 422);
+            if (Arr::get($data, 'phoneNumber')){
+                return response()->json('شماره تلفن همراه یا رمز عبور اشتباه است.', 422);
+            }
+            else{
+                return response()->json('ایمیل یا رمز عبور اشتباه است.', 422);
+            }
         }
 
         $user = auth()->user();
         $tokenResult = $user->createToken('userToken');
         $tokenModel = $tokenResult->token;
 
-        if ($request->remember_me){
+        if ($request->remember_me) {
             $tokenModel->expires_at = Carbon::now()->addWeeks(1);
         }
 
