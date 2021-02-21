@@ -23,7 +23,7 @@ class Transplantation extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function portfolio(): HasMany{
+    public function portfolios(): HasMany{
         return $this->hasMany(Portfolio::class);
     }
 
