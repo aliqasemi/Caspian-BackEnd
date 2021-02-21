@@ -8,7 +8,7 @@ use App\Models\Media;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Spatie\MediaLibrary\InteractsWithMedia as BasicHasMedia;
 
-trait HasMediaTrait
+trait HasMedia
 {
     use BasicHasMedia;
 
