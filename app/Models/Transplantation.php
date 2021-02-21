@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Transplantation extends Model
 {
@@ -16,8 +17,8 @@ class Transplantation extends Model
 
     protected $fillable = ['name', 'category'];
 
-    public function portfolio(){
-        $this->hasMany(Portfolio::class);
+    public function portfolio(): HasMany{
+        return $this->hasMany(Portfolio::class);
     }
 
 
