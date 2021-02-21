@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Http\Requests\User\RegisterUserRequest;
+use App\Http\Requests\User\LoginUserRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -12,22 +14,9 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(RegisterUserRequest $request)
     {
         $data = $request->all();
-
-        $validator = Validator::make($request->all(), [
-            'firstname' => 'required|max:55',
-            'lastname' => 'required|max:55',
-            'phoneNumber' => 'required|regex:/(09)[0-9]{9}/|digits:11|unique:users',
-            'email' => 'required|email|unique:users',
-            'address' => 'nullable|string|max:150|unique:users',
-            'password' => 'required|confirmed'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
 
         $data['password'] = bcrypt($request->password);
 
@@ -42,19 +31,9 @@ class AuthController extends Controller
         ]);
     }
 
-    public function login(Request $request)
+    public function login(LoginUserRequest $request)
     {
         $data = $request->all();
-
-        $validator = Validator::make($request->all(), [
-            'email' => 'email|required_without_all:phoneNumber',
-            'phoneNumber' => 'regex:/(09)[0-9]{9}/|digits:11|required_without_all:email',
-            'password' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->first(), 422);
-        }
 
         if (!auth()->attempt($data)) {
             if (Arr::get($data, 'phoneNumber')){
