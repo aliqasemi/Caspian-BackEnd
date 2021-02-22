@@ -18,5 +18,14 @@ Route::group(['prefix' => 'caspian'], function (){
     Route::post('/register', [\App\Http\Controllers\Api\AuthController::class, 'register']);
     Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
 
-    Route::middleware('auth:api')->get('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
+    Route::middleware('auth:api')->group(function (){
+        Route::get('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
+
+        //Api
+        Route::resources([
+            'transplantations' => \App\Http\Controllers\Api\TransplantationController::class,
+            'portfolios' => \App\Http\Controllers\Api\PortfolioController::class,
+            'educations' => \App\Http\Controllers\Api\EducationController::class
+        ]);
+    });
 });
