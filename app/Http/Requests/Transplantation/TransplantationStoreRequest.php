@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Transplantation\Requests;
+namespace App\Http\Requests\Transplantation;
 
 use Illuminate\Foundation\Http\FormRequest;
 

@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Transplantation\Requests\TransplantationStoreRequest;
-use App\Http\Transplantation\Requests\TransplantationUpdateRequest;
+use App\Http\Requests\Transplantation\TransplantationStoreRequest;
+use App\Http\Requests\Transplantation\TransplantationUpdateRequest;
 use App\Models\Transplantation;
-use Illuminate\Http\Request;
 
 class TransplantationController extends Controller
 {
