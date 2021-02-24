@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Transplantation\Requests\TransplantationStoreRequest;
+use App\Http\Transplantation\Requests\TransplantationUpdateRequest;
 use App\Models\Transplantation;
 use Illuminate\Http\Request;
 
@@ -15,7 +17,7 @@ class TransplantationController extends Controller
      */
     public function index()
     {
-        dd("aaa");
+
     }
 
     /**
@@ -24,9 +26,9 @@ class TransplantationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TransplantationStoreRequest $request)
     {
-        //
+
     }
 
     /**
@@ -47,7 +49,7 @@ class TransplantationController extends Controller
      * @param  \App\Models\Transplantation  $transplantation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transplantation $transplantation)
+    public function update(TransplantationUpdateRequest $request, Transplantation $transplantation)
     {
         //
     }
