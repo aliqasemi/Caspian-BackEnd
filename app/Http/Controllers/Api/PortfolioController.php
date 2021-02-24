@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Portfolio\PortfolioStoreRequest;
+use App\Http\Requests\Portfolio\PortfolioUpdateRequest;
 use App\Models\Portfolio;
-use Illuminate\Http\Request;
 
 class PortfolioController extends Controller
 {
@@ -24,7 +25,7 @@ class PortfolioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PortfolioStoreRequest $request)
     {
         //
     }
@@ -47,7 +48,7 @@ class PortfolioController extends Controller
      * @param  \App\Models\Portfolio  $portfolio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Portfolio $portfolio)
+    public function update(PortfolioUpdateRequest $request, Portfolio $portfolio)
     {
         //
     }
