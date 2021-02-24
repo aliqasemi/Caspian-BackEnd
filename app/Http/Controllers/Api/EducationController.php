@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EducationStoreRequest;
+use App\Http\Requests\EducationUpdateRequest;
 use App\Models\Education;
 use Illuminate\Http\Request;
 
@@ -24,7 +26,7 @@ class EducationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EducationStoreRequest $request)
     {
         //
     }
@@ -47,7 +49,7 @@ class EducationController extends Controller
      * @param  \App\Models\Education  $education
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Education $education)
+    public function update(EducationUpdateRequest $request, Education $education)
     {
         //
     }
