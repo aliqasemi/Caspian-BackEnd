@@ -16,7 +16,8 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('view', Portfolio::class);
+
     }
 
     /**
@@ -27,7 +28,8 @@ class PortfolioController extends Controller
      */
     public function store(PortfolioStoreRequest $request)
     {
-        //
+        $this->authorize('create', Portfolio::class);
+
     }
 
     /**
@@ -38,7 +40,8 @@ class PortfolioController extends Controller
      */
     public function show(Portfolio $portfolio)
     {
-        //
+        $this->authorize('view', Portfolio::class);
+
     }
 
     /**
@@ -50,7 +53,8 @@ class PortfolioController extends Controller
      */
     public function update(PortfolioUpdateRequest $request, Portfolio $portfolio)
     {
-        //
+        $this->authorize('update', Portfolio::class);
+
     }
 
     /**
@@ -61,6 +65,7 @@ class PortfolioController extends Controller
      */
     public function destroy(Portfolio $portfolio)
     {
-        //
+        $this->authorize('delete', Portfolio::class);
+
     }
 }

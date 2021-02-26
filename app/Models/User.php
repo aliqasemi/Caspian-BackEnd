@@ -56,4 +56,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Transplantation::class);
     }
+
+    public function isSuperAdmin()
+    {
+        return $this->role === 'super-admin';
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isAccess(string $role)
+    {
+        return $this->role === $role;
+    }
 }

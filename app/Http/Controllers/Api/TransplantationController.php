@@ -16,6 +16,7 @@ class TransplantationController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', Transplantation::class);
 
     }
 
@@ -27,6 +28,7 @@ class TransplantationController extends Controller
      */
     public function store(TransplantationStoreRequest $request)
     {
+        $this->authorize('create', Transplantation::class);
 
     }
 
@@ -38,7 +40,8 @@ class TransplantationController extends Controller
      */
     public function show(Transplantation $transplantation)
     {
-        //
+        $this->authorize('view', Transplantation::class);
+
     }
 
     /**
@@ -50,7 +53,8 @@ class TransplantationController extends Controller
      */
     public function update(TransplantationUpdateRequest $request, Transplantation $transplantation)
     {
-        //
+        $this->authorize('update', Transplantation::class);
+
     }
 
     /**
@@ -61,6 +65,7 @@ class TransplantationController extends Controller
      */
     public function destroy(Transplantation $transplantation)
     {
-        //
+        $this->authorize('delete', Transplantation::class);
+
     }
 }
