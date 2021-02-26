@@ -103,11 +103,16 @@ class TransplantationController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Transplantation  $transplantation
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Transplantation $transplantation)
     {
         $this->authorize('delete', Transplantation::class);
+
+            $response = Transplantation::destroy($transplantation);
+
+            if ($response == false)
+                return response()->json('عملیات با موفقیت انجام شد');
 
     }
 }
