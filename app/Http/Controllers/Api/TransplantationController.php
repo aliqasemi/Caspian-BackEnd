@@ -15,12 +15,16 @@ class TransplantationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
         $this->authorize('view', Transplantation::class);
 
+        return TransplantationResource::collection(
+            Transplantation::with('user')
+                ->get()
+        );
     }
 
     /**
