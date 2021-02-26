@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\ErrorException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Transplantation\TransplantationStoreRequest;
 use App\Http\Requests\Transplantation\TransplantationUpdateRequest;
@@ -30,7 +31,7 @@ class TransplantationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return TransplantationResource
      */
     public function store(TransplantationStoreRequest $request)
@@ -57,7 +58,7 @@ class TransplantationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Transplantation  $transplantation
+     * @param \App\Models\Transplantation $transplantation
      * @return TransplantationResource
      */
     public function show(Transplantation $transplantation)
@@ -76,8 +77,8 @@ class TransplantationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Transplantation  $transplantation
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Transplantation $transplantation
      * @return TransplantationResource
      */
     public function update(TransplantationUpdateRequest $request, Transplantation $transplantation)
@@ -102,17 +103,17 @@ class TransplantationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Transplantation  $transplantation
+     * @param \App\Models\Transplantation $transplantation
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Transplantation $transplantation)
     {
         $this->authorize('delete', Transplantation::class);
 
-            $response = Transplantation::destroy([$transplantation->id]);
+        $response = Transplantation::destroy([$transplantation->id]);
 
-            if ($response == true)
-                return response()->json('عملیات با موفقیت انجام شد');
+        if ($response == true)
+            return response()->json('عملیات با موفقیت انجام شد');
 
     }
 }
