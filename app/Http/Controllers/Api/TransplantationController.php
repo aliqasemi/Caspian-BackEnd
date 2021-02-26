@@ -78,11 +78,24 @@ class TransplantationController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Transplantation  $transplantation
-     * @return \Illuminate\Http\Response
+     * @return TransplantationResource
      */
     public function update(TransplantationUpdateRequest $request, Transplantation $transplantation)
     {
         $this->authorize('update', Transplantation::class);
+
+        $data = $request->all();
+
+        $transplantation = Transplantation::findOrFail($transplantation->id);
+
+        $transplantation->fill($data);
+        $transplantation->save();
+
+        $transplantation->load('user');
+
+        return new TransplantationResource(
+            $transplantation
+        );
 
     }
 
