@@ -17,7 +17,8 @@ class EducationController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('view', Education::class);
+
     }
 
     /**
@@ -28,7 +29,8 @@ class EducationController extends Controller
      */
     public function store(EducationStoreRequest $request)
     {
-        //
+        $this->authorize('create', Education::class);
+
     }
 
     /**
@@ -39,7 +41,8 @@ class EducationController extends Controller
      */
     public function show(Education $education)
     {
-        //
+        $this->authorize('view', Education::class);
+
     }
 
     /**
@@ -51,7 +54,8 @@ class EducationController extends Controller
      */
     public function update(EducationUpdateRequest $request, Education $education)
     {
-        //
+        $this->authorize('update', Education::class);
+
     }
 
     /**
@@ -62,6 +66,7 @@ class EducationController extends Controller
      */
     public function destroy(Education $education)
     {
-        //
+        $this->authorize('delete', Education::class);
+
     }
 }
