@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use App\Helpers\HasMedia;
+use App\Helpers\HasMedia as HasMediaTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\MediaLibrary\HasMedia as HasMediaInterface;
 
-class Transplantation extends Model
+class Transplantation extends Model implements HasMediaInterface
 {
-    use HasFactory, HasMedia;
+    use HasFactory, HasMediaTrait;
 
     public function getTable(): string
     {
