@@ -109,7 +109,7 @@ class TransplantationController extends Controller
     {
         $this->authorize('delete', Transplantation::class);
 
-            $response = Transplantation::destroy($transplantation);
+            $response = Transplantation::destroy([$transplantation->id]);
 
             if ($response == false)
                 return response()->json('عملیات با موفقیت انجام شد');
