@@ -58,12 +58,19 @@ class TransplantationController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Transplantation  $transplantation
-     * @return \Illuminate\Http\Response
+     * @return TransplantationResource
      */
     public function show(Transplantation $transplantation)
     {
         $this->authorize('view', Transplantation::class);
 
+        $transplantation = Transplantation::findOrFail($transplantation->id);
+
+        $transplantation->load('user');
+
+        return new TransplantationResource(
+            $transplantation
+        );
     }
 
     /**
