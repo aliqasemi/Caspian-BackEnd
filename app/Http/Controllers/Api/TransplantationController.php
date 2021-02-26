@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Transplantation\TransplantationStoreRequest;
 use App\Http\Requests\Transplantation\TransplantationUpdateRequest;
+use App\Http\Resources\TransplantationResource;
 use App\Models\Transplantation;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class TransplantationController extends Controller
 {
@@ -24,12 +27,27 @@ class TransplantationController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return TransplantationResource
      */
     public function store(TransplantationStoreRequest $request)
     {
         $this->authorize('create', Transplantation::class);
 
+        $data = $request->all();
+
+        $transplantation = Transplantation::create([
+            'name' => Arr::get($data, 'name'),
+            'category' => Arr::get($data, 'category'),
+            'user_id' => Auth::id()
+        ]);
+
+        $transplantation->save();
+
+        $transplantation->load('user');
+
+        return new TransplantationResource(
+            $transplantation
+        );
     }
 
     /**
