@@ -111,7 +111,7 @@ class TransplantationController extends Controller
 
             $response = Transplantation::destroy([$transplantation->id]);
 
-            if ($response == false)
+            if ($response == true)
                 return response()->json('عملیات با موفقیت انجام شد');
 
     }
