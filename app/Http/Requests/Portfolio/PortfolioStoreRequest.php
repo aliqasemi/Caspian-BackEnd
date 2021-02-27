@@ -26,6 +26,7 @@ class PortfolioStoreRequest extends FormRequest
         return [
             'title' => 'required|string',
             'description' => 'nullable|string',
+            'transplantation_id' => 'required|integer|exists:transplantation,id',
         ];
     }
 }

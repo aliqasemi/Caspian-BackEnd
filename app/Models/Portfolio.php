@@ -3,15 +3,16 @@
 namespace App\Models;
 
 use App\Helpers\HasComment;
-use App\Helpers\HasMedia;
+use App\Helpers\HasMedia as HasMediaTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\MediaLibrary\HasMedia as HasMediaInterface;
 
-class Portfolio extends Model
+class Portfolio extends Model implements  HasMediaInterface
 {
-    use HasFactory, HasComment, HasMedia;
+    use HasFactory, HasComment, HasMediaTrait;
 
     public function getTable(): string
     {
