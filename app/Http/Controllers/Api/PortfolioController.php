@@ -8,19 +8,22 @@ use App\Http\Requests\Portfolio\PortfolioUpdateRequest;
 use App\Http\Resources\PortfolioResource;
 use App\Models\Portfolio;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
 
 class PortfolioController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
         $this->authorize('view', Portfolio::class);
 
+        return PortfolioResource::collection(
+            Portfolio::with(['transplantation', 'transplantation.user'])
+                ->paginate()
+        );
     }
 
     /**
