@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Education;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EducationUpdateRequest extends FormRequest
+class EducationStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,6 +26,7 @@ class EducationUpdateRequest extends FormRequest
         return [
             'title' => 'required|string',
             'content' => 'required|string',
+            'portfolio_id' => 'required|integer|exists:portfolio,id',
         ];
     }
 }

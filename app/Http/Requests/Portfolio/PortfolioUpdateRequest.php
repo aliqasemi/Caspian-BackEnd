@@ -26,6 +26,7 @@ class PortfolioUpdateRequest extends FormRequest
         return [
             'title' => 'nullable|string',
             'description' => 'nullable|string',
+            'portfolio_id' => 'nullable|integer|exists:transplantation,id',
         ];
     }
 }
