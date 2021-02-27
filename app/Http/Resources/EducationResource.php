@@ -17,7 +17,7 @@ class EducationResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'content' => $this->description,
+            'content' => $this->content,
             'portfolios' => new PortfolioResource($this->whenLoaded('portfolio'))
         ];
     }
