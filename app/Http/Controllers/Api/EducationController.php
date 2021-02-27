@@ -77,23 +77,39 @@ class EducationController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Education  $education
-     * @return \Illuminate\Http\Response
+     * @return EducationResource
      */
     public function update(EducationUpdateRequest $request, Education $education)
     {
         $this->authorize('update', Education::class);
 
+        $data = $request->all();
+
+        $education = Education::findOrFail($education->id);
+
+        $education->fill($data);
+        $education->save();
+
+        $education->load(['portfolio.transplantation.user']);
+
+        return new EducationResource(
+            $education
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Education  $education
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Education $education)
     {
         $this->authorize('delete', Education::class);
 
+        $response = Education::destroy([$education->id]);
+
+        if ($response == true)
+            return response()->json('عملیات با موفقیت انجام شد');
     }
 }
