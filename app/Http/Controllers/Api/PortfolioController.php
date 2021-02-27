@@ -54,12 +54,19 @@ class PortfolioController extends Controller
      * Display the specified resource.
      *
      * @param \App\Models\Portfolio $portfolio
-     * @return \Illuminate\Http\Response
+     * @return PortfolioResource
      */
     public function show(Portfolio $portfolio)
     {
         $this->authorize('view', Portfolio::class);
 
+        $portfolio = Portfolio::findOrFail($portfolio->id);
+
+        $portfolio->load(['transplantation', 'transplantation.user']);
+
+        return new PortfolioResource(
+            $portfolio
+        );
     }
 
     /**
@@ -67,23 +74,39 @@ class PortfolioController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Portfolio $portfolio
-     * @return \Illuminate\Http\Response
+     * @return PortfolioResource
      */
     public function update(PortfolioUpdateRequest $request, Portfolio $portfolio)
     {
         $this->authorize('update', Portfolio::class);
 
+        $data = $request->all();
+
+        $portfolio = Portfolio::findOrFail($portfolio->id);
+
+        $portfolio->fill($data);
+        $portfolio->save();
+
+        $portfolio->load(['transplantation', 'transplantation.user']);
+
+        return new PortfolioResource(
+            $portfolio
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Portfolio $portfolio
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Portfolio $portfolio)
     {
         $this->authorize('delete', Portfolio::class);
 
+        $response = Portfolio::destroy([$portfolio->id]);
+
+        if ($response == true)
+            return response()->json('عملیات با موفقیت انجام شد');
     }
 }
