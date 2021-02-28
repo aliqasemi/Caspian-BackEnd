@@ -18,7 +18,8 @@ class PortfolioResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'transplantations' => new TransplantationResource($this->whenLoaded('transplantation'))
+            'transplantations' => new TransplantationResource($this->whenLoaded('transplantation')),
+            'tags' => TagResource::collection($this->whenLoaded('tags'))
         ];
     }
 }
