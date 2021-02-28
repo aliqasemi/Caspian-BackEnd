@@ -48,7 +48,10 @@ class TransplantationController extends Controller
 
         $transplantation->save();
 
-        $transplantation->load('user');
+        if (Arr::has($data, 'tags'))
+            $transplantation->syncTag();
+
+        $transplantation->load(['user', 'tags']);
 
         return new TransplantationResource(
             $transplantation
@@ -67,7 +70,7 @@ class TransplantationController extends Controller
 
         $transplantation = Transplantation::findOrFail($transplantation->id);
 
-        $transplantation->load('user');
+        $transplantation->load(['user', 'tags']);
 
         return new TransplantationResource(
             $transplantation
@@ -92,7 +95,10 @@ class TransplantationController extends Controller
         $transplantation->fill($data);
         $transplantation->save();
 
-        $transplantation->load('user');
+        if (Arr::has($data, 'tags'))
+            $transplantation->syncTag();
+
+        $transplantation->load(['user', 'tags']);
 
         return new TransplantationResource(
             $transplantation
