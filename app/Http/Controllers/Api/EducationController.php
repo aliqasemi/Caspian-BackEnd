@@ -21,7 +21,7 @@ class EducationController extends Controller
         $this->authorize('view', Education::class);
 
         return EducationResource::collection(
-            Education::with(['portfolio.transplantation.user'])
+            Education::with(['portfolio.transplantation.user', 'tags'])
                 ->paginate()
         );
     }
@@ -29,7 +29,7 @@ class EducationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return EducationResource
      */
     public function store(EducationStoreRequest $request)
@@ -46,7 +46,10 @@ class EducationController extends Controller
 
         $education->save();
 
-        $education->load(['portfolio.transplantation.user']);
+        if (Arr::has($data, 'tags'))
+            $education->syncTag();
+
+        $education->load(['portfolio.transplantation.user', 'tags']);
 
         return new EducationResource(
             $education
@@ -56,7 +59,7 @@ class EducationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Education  $education
+     * @param \App\Models\Education $education
      * @return EducationResource
      */
     public function show(Education $education)
@@ -65,7 +68,7 @@ class EducationController extends Controller
 
         $education = Education::findOrFail($education->id);
 
-        $education->load(['portfolio.transplantation.user']);
+        $education->load(['portfolio.transplantation.user', 'tags']);
 
         return new EducationResource(
             $education
@@ -75,8 +78,8 @@ class EducationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Education  $education
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Education $education
      * @return EducationResource
      */
     public function update(EducationUpdateRequest $request, Education $education)
@@ -90,7 +93,10 @@ class EducationController extends Controller
         $education->fill($data);
         $education->save();
 
-        $education->load(['portfolio.transplantation.user']);
+        if (Arr::has($data, 'tags'))
+            $education->syncTag();
+
+        $education->load(['portfolio.transplantation.user', 'tags']);
 
         return new EducationResource(
             $education
@@ -100,7 +106,7 @@ class EducationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Education  $education
+     * @param \App\Models\Education $education
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Education $education)

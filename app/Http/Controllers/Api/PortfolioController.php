@@ -21,7 +21,7 @@ class PortfolioController extends Controller
         $this->authorize('view', Portfolio::class);
 
         return PortfolioResource::collection(
-            Portfolio::with(['transplantation', 'transplantation.user'])
+            Portfolio::with(['transplantation', 'transplantation.user', 'tags'])
                 ->paginate()
         );
     }
@@ -46,7 +46,10 @@ class PortfolioController extends Controller
 
         $portfolio->save();
 
-        $portfolio->load(['transplantation', 'transplantation.user']);
+        if (Arr::has($data, 'tags'))
+            $portfolio->syncTag();
+
+        $portfolio->load(['transplantation', 'transplantation.user', 'tags']);
 
         return new PortfolioResource(
             $portfolio
@@ -65,7 +68,7 @@ class PortfolioController extends Controller
 
         $portfolio = Portfolio::findOrFail($portfolio->id);
 
-        $portfolio->load(['transplantation', 'transplantation.user']);
+        $portfolio->load(['transplantation', 'transplantation.user', 'tags']);
 
         return new PortfolioResource(
             $portfolio
@@ -90,7 +93,10 @@ class PortfolioController extends Controller
         $portfolio->fill($data);
         $portfolio->save();
 
-        $portfolio->load(['transplantation', 'transplantation.user']);
+        if (Arr::has($data, 'tags'))
+            $portfolio->syncTag();
+
+        $portfolio->load(['transplantation', 'transplantation.user', 'tags']);
 
         return new PortfolioResource(
             $portfolio
