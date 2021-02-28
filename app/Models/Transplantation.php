@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\HasMedia as HasMediaTrait;
+use App\Helpers\HasTag;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,7 +12,7 @@ use Spatie\MediaLibrary\HasMedia as HasMediaInterface;
 
 class Transplantation extends Model implements HasMediaInterface
 {
-    use HasFactory, HasMediaTrait;
+    use HasFactory, HasTag, HasMediaTrait;
 
     public function getTable(): string
     {
@@ -25,7 +26,8 @@ class Transplantation extends Model implements HasMediaInterface
         return $this->belongsTo(User::class);
     }
 
-    public function portfolios(): HasMany{
+    public function portfolios(): HasMany
+    {
         return $this->hasMany(Portfolio::class);
     }
 
