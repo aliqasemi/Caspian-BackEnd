@@ -16,7 +16,7 @@ class Comment extends Model
     }
 
     protected $fillable = [
-        'message', 'commentable_id', 'commentable_type'
+        'message', 'commentable_id', 'commentable_type', 'user_id'
     ];
 
     public function commentable() :MorphTo
