@@ -46,7 +46,8 @@ class EducationController extends Controller
 
         $education->save();
 
-        $education->syncTag();
+        if (Arr::has($data, 'tags'))
+            $education->syncTag();
 
         $education->load(['portfolio.transplantation.user', 'tags']);
 
@@ -92,7 +93,8 @@ class EducationController extends Controller
         $education->fill($data);
         $education->save();
 
-        $education->syncTag();
+        if (Arr::has($data, 'tags'))
+            $education->syncTag();
 
         $education->load(['portfolio.transplantation.user', 'tags']);
 
