@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use \Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class tag extends Model
 {
@@ -14,9 +15,20 @@ class tag extends Model
         return "tags";
     }
 
-    protected $fillable = ['name', 'user_id', 'tagable_type', 'tagable_id'];
+    protected $fillable = ['name', 'user_id'];
 
-    public function tagable(){
-        return $this->morphTo();
+    public function transplantation(): MorphToMany
+    {
+        return $this->morphedByMany(Transplantation::class, 'taggable');
+    }
+
+    public function educations(): MorphToMany
+    {
+        return $this->morphedByMany(Education::class, 'taggable');
+    }
+
+    public function portfolio() :MorphToMany
+    {
+        return $this->morphedByMany(Portfolio::class, 'taggable');
     }
 }
