@@ -24,8 +24,8 @@ class EducationUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string',
-            'content' => 'required|string',
+            'title' => 'nullable|string',
+            'content' => 'nullable|string',
             'portfolio_id' => 'nullable|integer|exists:portfolio,id',
         ];
     }

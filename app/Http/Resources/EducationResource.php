@@ -19,7 +19,7 @@ class EducationResource extends JsonResource
             'title' => $this->title,
             'content' => $this->content,
             'portfolios' => new PortfolioResource($this->whenLoaded('portfolio')),
-            'tags' => new PortfolioResource($this->whenLoaded('tags'))
+            'tags' => TagResource::collection($this->whenLoaded('tags'))
         ];
     }
 }
