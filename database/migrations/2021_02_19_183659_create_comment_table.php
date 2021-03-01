@@ -16,6 +16,7 @@ class CreateCommentTable extends Migration
         Schema::create('comment', function (Blueprint $table) {
             $table->id();
             $table->text('message')->nullable();
+            $table->nestedSet();
             $table->unsignedInteger('user_id');
             $table->morphs('commentable');
             $table->index('user_id');
