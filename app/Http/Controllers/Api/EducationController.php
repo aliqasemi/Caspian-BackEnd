@@ -21,7 +21,7 @@ class EducationController extends Controller
         $this->authorize('view', Education::class);
 
         return EducationResource::collection(
-            Education::with(['portfolio.transplantation.user', 'tags'])
+            Education::with(['portfolio.transplantation.user', 'tags', 'comments'])
                 ->paginate()
         );
     }
@@ -68,7 +68,7 @@ class EducationController extends Controller
 
         $education = Education::findOrFail($education->id);
 
-        $education->load(['portfolio.transplantation.user', 'tags']);
+        $education->load(['portfolio.transplantation.user', 'tags', 'comments']);
 
         return new EducationResource(
             $education
@@ -96,7 +96,7 @@ class EducationController extends Controller
         if (Arr::has($data, 'tags'))
             $education->syncTag();
 
-        $education->load(['portfolio.transplantation.user', 'tags']);
+        $education->load(['portfolio.transplantation.user', 'tags', 'comments']);
 
         return new EducationResource(
             $education
