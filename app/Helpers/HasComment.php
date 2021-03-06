@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Helpers;
-
 
 use App\Models\Comment;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
