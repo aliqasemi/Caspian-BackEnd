@@ -20,7 +20,6 @@ class TransplantationResource extends JsonResource
             'category' => $this->category,
             'user' => new UserResource($this->whenLoaded('user')),
             'tags' => TagResource::collection($this->whenLoaded('tags')),
-            'comments' => CommentResource::collection($this->whenLoaded('comments')),
         ];
     }
 }
