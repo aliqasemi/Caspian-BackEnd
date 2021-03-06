@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Exceptions\ErrorException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Transplantation\TransplantationStoreRequest;
 use App\Http\Requests\Transplantation\TransplantationUpdateRequest;

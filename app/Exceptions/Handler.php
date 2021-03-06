@@ -54,7 +54,7 @@ class Handler extends ExceptionHandler
         }
 
         if ($exception instanceof ErrorException) {
-            return response()->json($exception->getMessageInfo(), $exception->getMessageBody());
+            return response()->json($exception->getMessageInfo());
         }
         return parent::render($request, $exception);
     }
