@@ -25,7 +25,8 @@ Route::group(['prefix' => 'caspian'], function (){
         Route::resources([
             'transplantations' => \App\Http\Controllers\Api\TransplantationController::class,
             'portfolios' => \App\Http\Controllers\Api\PortfolioController::class,
-            'educations' => \App\Http\Controllers\Api\EducationController::class
+            'educations' => \App\Http\Controllers\Api\EducationController::class,
+            'comments' => \App\Http\Controllers\Api\CommentController::class
         ]);
     });
 });
