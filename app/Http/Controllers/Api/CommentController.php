@@ -85,11 +85,23 @@ class CommentController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Comment $comment
-     * @return \Illuminate\Http\Response
+     * @return CommentResource
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        $data = $request->all();
+
+        $comment->fill($data);
+
+        if (Arr::get($data, 'parent.connect') and $parent = Comment::findOrFail(Arr::get($data, 'parent.connect'))) {
+            $comment->parent()->associate($parent);
+        }
+
+        $comment->save();
+
+        return new CommentResource(
+            $comment
+        );
     }
 
     /**
