@@ -75,7 +75,9 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        return new CommentResource(
+            Comment::descendantsAndSelf($comment)->toTree()->first()
+        );
     }
 
     /**
