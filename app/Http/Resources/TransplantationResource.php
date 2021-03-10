@@ -20,6 +20,7 @@ class TransplantationResource extends JsonResource
             'category' => $this->category,
             'user' => new UserResource($this->whenLoaded('user')),
             'tags' => TagResource::collection($this->whenLoaded('tags')),
+            'media' => MedaiResource::collection($this->whenLoaded('media')),
         ];
     }
 }
