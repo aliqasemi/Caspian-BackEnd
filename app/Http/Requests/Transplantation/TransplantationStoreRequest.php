@@ -26,6 +26,10 @@ class TransplantationStoreRequest extends FormRequest
         return [
             'name' => 'required|string',
             'category' => 'required|string',
+            'image' => 'nullable|file',
+            'crop' => 'nullable|array',
+            'crop.width' => 'nullable|int',
+            'crop.height' => 'nullable|int'
         ];
     }
 }
