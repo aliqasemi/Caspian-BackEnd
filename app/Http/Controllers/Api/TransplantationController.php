@@ -22,7 +22,7 @@ class TransplantationController extends Controller
         $this->authorize('view', Transplantation::class);
 
         return TransplantationResource::collection(
-            Transplantation::with('user')
+            Transplantation::with(['user', 'media'])
                 ->get()
         );
     }
@@ -45,12 +45,16 @@ class TransplantationController extends Controller
             'user_id' => Auth::id()
         ]);
 
+        if (Arr::has($data, 'image')) {
+            $transplantation->addMedia(Arr::get($data, 'image'))->toMediaCollection('main_image');
+        }
+
         $transplantation->save();
 
         if (Arr::has($data, 'tags'))
             $transplantation->syncTag();
 
-        $transplantation->load(['user', 'tags']);
+        $transplantation->load(['user', 'tags', 'media']);
 
         return new TransplantationResource(
             $transplantation
@@ -67,9 +71,7 @@ class TransplantationController extends Controller
     {
         $this->authorize('view', Transplantation::class);
 
-        $transplantation = Transplantation::findOrFail($transplantation->id);
-
-        $transplantation->load(['user', 'tags']);
+        $transplantation->load(['user', 'tags', 'media']);
 
         return new TransplantationResource(
             $transplantation
@@ -89,15 +91,18 @@ class TransplantationController extends Controller
 
         $data = $request->all();
 
-        $transplantation = Transplantation::findOrFail($transplantation->id);
-
         $transplantation->fill($data);
+
+        if (Arr::has($data, 'image')) {
+            $transplantation->addMedia(Arr::get($data, 'image'))->toMediaCollection('main_image');
+        }
+
         $transplantation->save();
 
         if (Arr::has($data, 'tags'))
             $transplantation->syncTag();
 
-        $transplantation->load(['user', 'tags']);
+        $transplantation->load(['user', 'tags', 'media']);
 
         return new TransplantationResource(
             $transplantation
