@@ -27,6 +27,10 @@ class EducationUpdateRequest extends FormRequest
             'title' => 'nullable|string',
             'content' => 'nullable|string',
             'portfolio_id' => 'nullable|integer|exists:portfolio,id',
+            'image' => 'nullable|file',
+            'crop' => 'nullable|array',
+            'crop.width' => 'nullable|int',
+            'crop.height' => 'nullable|int'
         ];
     }
 }
