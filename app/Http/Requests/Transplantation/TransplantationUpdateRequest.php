@@ -26,6 +26,10 @@ class TransplantationUpdateRequest extends FormRequest
         return [
             'name' => 'nullable|string',
             'category' => 'nullable|string',
+            'image' => 'nullable|file',
+            'crop' => 'nullable|array',
+            'crop.width' => 'nullable|int',
+            'crop.height' => 'nullable|int'
         ];
     }
 }
