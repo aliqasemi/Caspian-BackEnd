@@ -27,6 +27,10 @@ class PortfolioUpdateRequest extends FormRequest
             'title' => 'nullable|string',
             'description' => 'nullable|string',
             'portfolio_id' => 'nullable|integer|exists:transplantation,id',
+            'image' => 'nullable|file',
+            'crop' => 'nullable|array',
+            'crop.width' => 'nullable|int',
+            'crop.height' => 'nullable|int'
         ];
     }
 }
