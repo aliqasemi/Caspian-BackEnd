@@ -21,7 +21,7 @@ class PortfolioController extends Controller
         $this->authorize('view', Portfolio::class);
 
         return PortfolioResource::collection(
-            Portfolio::with(['transplantation', 'transplantation.user', 'tags', 'comments'])
+            Portfolio::with(['transplantation', 'transplantation.user', 'tags', 'comments', 'media'])
                 ->paginate()
         );
     }
@@ -44,12 +44,16 @@ class PortfolioController extends Controller
             'transplantation_id' => Arr::get($data, 'transplantation_id')
         ]);
 
+        if (Arr::has($data, 'image')) {
+            $portfolio->addMedia(Arr::get($data, 'image'))->toMediaCollection('main_image');
+        }
+
         $portfolio->save();
 
         if (Arr::has($data, 'tags'))
             $portfolio->syncTag();
 
-        $portfolio->load(['transplantation', 'transplantation.user', 'tags']);
+        $portfolio->load(['transplantation', 'transplantation.user', 'tags', 'media']);
 
         return new PortfolioResource(
             $portfolio
@@ -68,7 +72,7 @@ class PortfolioController extends Controller
 
         $portfolio = Portfolio::findOrFail($portfolio->id);
 
-        $portfolio->load(['transplantation', 'transplantation.user', 'tags', 'comments']);
+        $portfolio->load(['transplantation', 'transplantation.user', 'tags', 'comments', 'media']);
 
         return new PortfolioResource(
             $portfolio
@@ -91,12 +95,17 @@ class PortfolioController extends Controller
         $portfolio = Portfolio::findOrFail($portfolio->id);
 
         $portfolio->fill($data);
+
+        if (Arr::has($data, 'image')) {
+            $portfolio->addMedia(Arr::get($data, 'image'))->toMediaCollection('main_image');
+        }
+
         $portfolio->save();
 
         if (Arr::has($data, 'tags'))
             $portfolio->syncTag();
 
-        $portfolio->load(['transplantation', 'transplantation.user', 'tags', 'comments']);
+        $portfolio->load(['transplantation', 'transplantation.user', 'tags', 'comments', 'media']);
 
         return new PortfolioResource(
             $portfolio
