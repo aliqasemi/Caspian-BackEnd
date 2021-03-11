@@ -21,7 +21,7 @@ class EducationController extends Controller
         $this->authorize('view', Education::class);
 
         return EducationResource::collection(
-            Education::with(['portfolio.transplantation.user', 'tags', 'comments'])
+            Education::with(['portfolio.transplantation.user', 'tags', 'comments', 'media'])
                 ->paginate()
         );
     }
@@ -43,6 +43,10 @@ class EducationController extends Controller
             'content' => Arr::get($data, 'content'),
             'portfolio_id' => Arr::get($data, 'portfolio_id')
         ]);
+
+        if (Arr::has($data, 'image')) {
+            $education->addMedia(Arr::get($data, 'image'))->toMediaCollection('main_image');
+        }
 
         $education->save();
 
@@ -68,7 +72,7 @@ class EducationController extends Controller
 
         $education = Education::findOrFail($education->id);
 
-        $education->load(['portfolio.transplantation.user', 'tags', 'comments']);
+        $education->load(['portfolio.transplantation.user', 'tags', 'comments', 'media']);
 
         return new EducationResource(
             $education
@@ -91,12 +95,17 @@ class EducationController extends Controller
         $education = Education::findOrFail($education->id);
 
         $education->fill($data);
+
+        if (Arr::has($data, 'image')) {
+            $education->addMedia(Arr::get($data, 'image'))->toMediaCollection('main_image');
+        }
+
         $education->save();
 
         if (Arr::has($data, 'tags'))
             $education->syncTag();
 
-        $education->load(['portfolio.transplantation.user', 'tags', 'comments']);
+        $education->load(['portfolio.transplantation.user', 'tags', 'comments', 'media']);
 
         return new EducationResource(
             $education

@@ -27,6 +27,10 @@ class PortfolioStoreRequest extends FormRequest
             'title' => 'required|string',
             'description' => 'required|string',
             'transplantation_id' => 'required|integer|exists:transplantation,id',
+            'image' => 'nullable|file',
+            'crop' => 'nullable|array',
+            'crop.width' => 'nullable|int',
+            'crop.height' => 'nullable|int'
         ];
     }
 }
