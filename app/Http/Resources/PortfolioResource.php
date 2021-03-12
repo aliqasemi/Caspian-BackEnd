@@ -21,6 +21,7 @@ class PortfolioResource extends JsonResource
             'transplantations' => new TransplantationResource($this->whenLoaded('transplantation')),
             'tags' => TagResource::collection($this->whenLoaded('tags')),
             'comments' => CommentResource::collection($this->whenLoaded('comments')),
+            'media' => MedaiResource::collection($this->whenLoaded('media')),
         ];
     }
 }

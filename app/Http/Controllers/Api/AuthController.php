@@ -74,4 +74,17 @@ class AuthController extends Controller
 
     }
 
+    public function userAuthorize(User $user, Request $ability): \Illuminate\Http\JsonResponse
+    {
+        $this->authorize('update', User::class);
+        $this->validate($ability, [
+            'ability' => 'required|string|in:user,admin',
+        ]);
+
+        $user->role = $ability->ability;
+
+        $user->save();
+
+        return response()->json('عملیات با موفقیت انجام شد.');
+    }
 }

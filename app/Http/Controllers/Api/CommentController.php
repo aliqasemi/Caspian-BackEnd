@@ -8,7 +8,6 @@ use App\Http\Requests\Comment\CommentIndexRequest;
 use App\Http\Requests\Comment\CommentStoreRequest;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
-use App\Models\Portfolio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +22,8 @@ class CommentController extends Controller
      */
     public function index(CommentIndexRequest $request)
     {
+        $this->authorize('view', Comment::class);
+
         $data = $request->all();
 
         $model = config('comment-models.models.' . Arr::get($data, 'commentable_type'));
@@ -43,6 +44,8 @@ class CommentController extends Controller
      */
     public function store(CommentStoreRequest $request)
     {
+        $this->authorize('create', Comment::class);
+
         $data = $request->all();
 
         Arr::set($data, 'user_id', Auth::id());
@@ -75,6 +78,8 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
+        $this->authorize('view', Comment::class);
+
         return new CommentResource(
             Comment::descendantsAndSelf($comment)->toTree()->first()
         );
@@ -89,6 +94,8 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
+        $this->authorize('update', Comment::class);
+
         $data = $request->all();
 
         $comment->fill($data);
@@ -112,6 +119,8 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
+        $this->authorize('delete', Comment::class);
+
         $response = $comment->delete();
 
         if ($response == true)
