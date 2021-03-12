@@ -3,11 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Transplantation;
-use App\Models\User;
 use App\Policies\TransplantationPolicy;
 use Carbon\Carbon;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
 
