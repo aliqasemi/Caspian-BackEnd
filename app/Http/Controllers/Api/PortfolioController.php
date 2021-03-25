@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Portfolio\PortfolioStoreRequest;
 use App\Http\Requests\Portfolio\PortfolioUpdateRequest;
+use App\Http\Requests\Search\SearchModelRequest;
 use App\Http\Resources\PortfolioResource;
 use App\Models\Portfolio;
 use Illuminate\Support\Arr;
@@ -126,5 +127,12 @@ class PortfolioController extends Controller
 
         if ($response == true)
             return response()->json('عملیات با موفقیت انجام شد');
+    }
+
+    public function search(SearchModelRequest $request)
+    {
+        return PortfolioResource::collection(
+            Portfolio::search($request->keyword)->get()
+        );
     }
 }
