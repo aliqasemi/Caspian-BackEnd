@@ -8,11 +8,12 @@ use App\Helpers\HasTag;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\HasMedia as HasMediaInterface;
 
 class Education extends Model implements HasMediaInterface
 {
-    use HasFactory, HasComment, HasTag, HasMediaTrait;
+    use HasFactory, HasComment, HasTag, HasMediaTrait, Searchable;
 
     public function getTable(): string
     {
