@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'caspian'], function (){
+Route::group(['prefix' => 'caspian'], function () {
     Route::post('/register', [\App\Http\Controllers\Api\AuthController::class, 'register']);
     Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
 
-    Route::middleware('auth:api')->group(function (){
+    Route::middleware('auth:api')->group(function () {
         Route::get('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
         Route::post('/authorize/{user}', [\App\Http\Controllers\Api\AuthController::class, 'userAuthorize']);
 
@@ -29,5 +29,12 @@ Route::group(['prefix' => 'caspian'], function (){
             'educations' => \App\Http\Controllers\Api\EducationController::class,
             'comments' => \App\Http\Controllers\Api\CommentController::class
         ]);
+    });
+
+    //search
+    Route::group(['prefix' => 'search'], function () {
+        Route::get('/educations', [\App\Http\Controllers\Api\EducationController::class, 'search']);
+        Route::get('/portfolios', [\App\Http\Controllers\Api\PortfolioController::class, 'search']);
+        Route::get('/transplantations', [\App\Http\Controllers\Api\TransplantationController::class, 'search']);
     });
 });

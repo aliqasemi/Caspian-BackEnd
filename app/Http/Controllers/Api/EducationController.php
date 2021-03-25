@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\HasSearch;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Education\EducationStoreRequest;
 use App\Http\Requests\Education\EducationUpdateRequest;
+use App\Http\Requests\Search\SearchModelRequest;
 use App\Http\Resources\EducationResource;
 use App\Models\Education;
 use Illuminate\Support\Arr;
 
 class EducationController extends Controller
 {
+    use HasSearch;
+
     /**
      * Display a listing of the resource.
      *
@@ -126,5 +130,13 @@ class EducationController extends Controller
 
         if ($response == true)
             return response()->json('عملیات با موفقیت انجام شد');
+    }
+
+    public function search(SearchModelRequest $request)
+    {
+        return EducationResource::collection(
+            Education::search($request->keyword)
+                ->get()
+        );
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Search\SearchModelRequest;
 use App\Http\Requests\Transplantation\TransplantationStoreRequest;
 use App\Http\Requests\Transplantation\TransplantationUpdateRequest;
 use App\Http\Resources\TransplantationResource;
@@ -125,5 +126,12 @@ class TransplantationController extends Controller
         if ($response == true)
             return response()->json('عملیات با موفقیت انجام شد');
 
+    }
+
+    public function search(SearchModelRequest $request)
+    {
+        return TransplantationResource::collection(
+            Transplantation::search($request->keyword)->get()
+        );
     }
 }
