@@ -33,11 +33,9 @@ class ElasticSearchCommand extends Command
 
     public function handle()
     {
-        Artisan::all('list');
-        foreach (config('models') as $models){
-            foreach ($models as $model){
-                dump('scout:import '.$model);
-                Artisan::all('make:command '.$model);
+        foreach (config('models') as $models) {
+            foreach ($models as $model) {
+                $this->call("scout:import", ['model' => $model]);
             }
         }
     }
