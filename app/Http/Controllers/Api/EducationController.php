@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Helpers\HasSearch;
+use App\Helpers\SearchInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Education\EducationStoreRequest;
 use App\Http\Requests\Education\EducationUpdateRequest;
@@ -11,10 +11,8 @@ use App\Http\Resources\EducationResource;
 use App\Models\Education;
 use Illuminate\Support\Arr;
 
-class EducationController extends Controller
+class EducationController extends Controller implements SearchInterface
 {
-    use HasSearch;
-
     /**
      * Display a listing of the resource.
      *
