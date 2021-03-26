@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\SearchInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Portfolio\PortfolioStoreRequest;
 use App\Http\Requests\Portfolio\PortfolioUpdateRequest;
@@ -10,7 +11,7 @@ use App\Http\Resources\PortfolioResource;
 use App\Models\Portfolio;
 use Illuminate\Support\Arr;
 
-class PortfolioController extends Controller
+class PortfolioController extends Controller implements SearchInterface
 {
     /**
      * Display a listing of the resource.

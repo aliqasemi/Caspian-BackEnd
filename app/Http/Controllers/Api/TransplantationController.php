@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\SearchInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Search\SearchModelRequest;
 use App\Http\Requests\Transplantation\TransplantationStoreRequest;
@@ -11,7 +12,7 @@ use App\Models\Transplantation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
-class TransplantationController extends Controller
+class TransplantationController extends Controller implements SearchInterface
 {
     /**
      * Display a listing of the resource.
