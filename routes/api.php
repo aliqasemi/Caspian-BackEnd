@@ -36,5 +36,7 @@ Route::group(['prefix' => 'caspian'], function () {
         Route::get('/educations', [\App\Http\Controllers\Api\EducationController::class, 'search']);
         Route::get('/portfolios', [\App\Http\Controllers\Api\PortfolioController::class, 'search']);
         Route::get('/transplantations', [\App\Http\Controllers\Api\TransplantationController::class, 'search']);
+
+        Route::get('/all', [\App\Http\Controllers\Api\SearchController::class, 'search']);
     });
 });
