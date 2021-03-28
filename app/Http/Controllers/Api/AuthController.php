@@ -87,4 +87,8 @@ class AuthController extends Controller
 
         return response()->json('عملیات با موفقیت انجام شد.');
     }
+
+    public function user(){
+        return new UserResource(auth()->user());
+    }
 }
