@@ -16,6 +16,7 @@ class AuthController extends Controller
     public function register(RegisterUserRequest $request)
     {
         $data = $request->all();
+        Arr::set($data, 'role', 'user');
 
         $data['password'] = bcrypt($request->password);
 
